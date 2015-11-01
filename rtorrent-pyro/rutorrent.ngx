@@ -1,0 +1,48 @@
+server {
+	listen 80 default_server;
+	root /var/www/ruTorrent-master;
+	client_max_body_size 16m;
+
+	access_log off;
+	error_log /dev/null;
+
+	location / {
+		index index.php index.html index.htm;
+
+		auth_basic "Restricted";
+		auth_basic_user_file /data/rutorrent.passwd;
+
+		try_files $uri $uri/ =404;
+	}
+
+	location /RPC2 {
+		auth_basic "Restricted";
+		auth_basic_user_file /data/rutorrent.passwd;
+
+		scgi_pass 127.0.0.1:5000;
+		include scgi_params;
+		scgi_param SCRIPT_NAME  /RPC2;
+	}
+
+	location /conf/ {
+		deny all;
+	}
+
+	location /share/ {
+		deny all;
+	}
+
+	location ~ \.php$ {
+		auth_basic "Restricted";
+		auth_basic_user_file /data/rutorrent.passwd;
+
+        fastcgi_pass   unix:/var/run/php5-fpm.sock;
+        fastcgi_index  index.php;
+        fastcgi_buffer_size 8k;
+        fastcgi_buffers 32 8k;
+
+		fastcgi_read_timeout 180;
+
+		include fastcgi_params;
+	}
+}
