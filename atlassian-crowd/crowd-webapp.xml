@@ -1,0 +1,5 @@
+     <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
+           <Context path="" docBase="../../crowd-webapp" debug="0">
+                 <Manager pathname="" />
+           </Context>
+     </Host>
