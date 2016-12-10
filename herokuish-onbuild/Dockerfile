@@ -7,3 +7,4 @@ ENV PORT=8080
 
 CMD ["/start", "web"]
 
+EXPOSE 8080
