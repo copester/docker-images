@@ -1,6 +1,6 @@
 FROM phusion/baseimage:latest
 
-ENV INSPIRCD_VERSION=2.0.20
+ENV INSPIRCD_VERSION=2.0.23
 
 ADD https://github.com/inspircd/inspircd/archive/v${INSPIRCD_VERSION}.tar.gz /usr/src/inspircd.tar.gz
 
