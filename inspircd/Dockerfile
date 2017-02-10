@@ -1,9 +1,8 @@
 FROM phusion/baseimage:latest
 
 ENV INSPIRCD_VERSION=2.0.20
-ENV INSPIRCD_SRC=https://github.com/inspircd/inspircd/archive/v${INSPIRCD_VERSION}.tar.gz
 
-ADD ${INSPIRCD_SRC} /usr/src/inspircd.tar.gz
+ADD https://github.com/inspircd/inspircd/archive/v${INSPIRCD_VERSION}.tar.gz /usr/src/inspircd.tar.gz
 
 # N.B. Uses /tmp as the base dir since it's only used for a wrapper script and creating some unneeded directories
 RUN apt-get update && \
@@ -14,6 +13,7 @@ RUN apt-get update && \
     ./configure --enable-gnutls --prefix=/tmp --config-dir=/etc/inspircd --log-dir=/var/log/inspircd --data-dir=/var/lib/inspircd --module-dir=/usr/lib/inspircd --binary-dir=/usr/sbin --uid=irc && \
     make && \
     make INSTUID=irc install && \
+    cp /etc/inspircd/examples/inspircd.conf.example /etc/inspircd/inspircd.conf && \
     mkdir -p /var/log/inspircd && \
     chown irc:adm /var/log/inspircd && \
     cd / && \
