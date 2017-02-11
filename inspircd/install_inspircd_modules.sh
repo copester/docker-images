@@ -22,10 +22,10 @@ for m in /tmp/buildctx/modules/*.cpp; do
 	BUILDDEPS=""
 	RUNDEPS=""
 	if [ -f "/tmp/buildctx/modules/${MODNAME}.deps" ]; then
-		BUILDDEPS="$(tr -s '\n' ' ' < /tmp/buildctl/modules/${MODNAME}.deps)"
+		BUILDDEPS="$(tr -s '\n' ' ' < /tmp/buildctx/modules/${MODNAME}.deps)"
 	fi
 	if [ -f "/tmp/buildctx/modules/${MODNAME}.rundeps" ]; then
-		RUNDEPS="$(tr -s '\n' ' ' < /tmp/buildctl/modules/${MODNAME}.rundeps)"
+		RUNDEPS="$(tr -s '\n' ' ' < /tmp/buildctx/modules/${MODNAME}.rundeps)"
 	fi
 	if [ -n "${BUILDDEPS}" ] || [ -n "${RUNDEPS}" ]; then
 		DEBIAN_FRONTEND="noninteractive" apt-get install -qy ${BUILDDEPS} ${RUNDEPS}
