@@ -11,7 +11,7 @@ RUN apt-get update && \
     tar xzf inspircd.tar.gz && \
     cd inspircd-${INSPIRCD_VERSION} && \
     ./configure --enable-gnutls --prefix=/tmp/inspircd --config-dir=/etc/inspircd --log-dir=/var/log/inspircd --data-dir=/var/lib/inspircd --module-dir=/usr/lib/inspircd --binary-dir=/usr/sbin --uid=irc && \
-    make && \
+    make -j`getconf _NPROCESSORS_ONLN` && \
     make INSTUID=irc install && \
     cp /etc/inspircd/examples/inspircd.conf.example /etc/inspircd/inspircd.conf && \
     mkdir -p /var/log/inspircd && \
